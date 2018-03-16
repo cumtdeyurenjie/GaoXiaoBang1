@@ -16,8 +16,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     ViewPager mainActivityViewPager;
     MainActivityAdapter adapter;
-  //  private List<News>pcNewsList=null;
-    private FragmentManager fManager;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -37,22 +36,16 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
-    //为ViewPager设置监听事件
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_actionbar);
-       // initPcNews();
         final BottomNavigationView navigation =findViewById(R.id.navigation);
-        fManager=getFragmentManager();
+        FragmentManager fManager=getFragmentManager();
         mainActivityViewPager=findViewById(R.id.main_viewpager);
-        //为ViewPager设置Adapter
         adapter=new MainActivityAdapter(getSupportFragmentManager());
-        //为Adapter添加Fragment
         adapter.addFragment(new PcFragment());
         adapter.addFragment(new JzFragment());
         adapter.addFragment(new JdFragment());
@@ -61,26 +54,14 @@ public class MainActivity extends AppCompatActivity {
         mainActivityViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
-
             @Override
             public void onPageSelected(int position) {
-                //当ViewPager滑动后设置BottomNavigationView选中相应项
                 navigation.getMenu().getItem(position).setChecked(true);
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
     }
-
-    /**private void initPcNews() {
-        for (int i=0;i<10;i++){
-
-        }
-    }**/
-
 }

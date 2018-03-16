@@ -35,8 +35,6 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * Created by YRJ on 2018/3/7.
  */
-//添加Recyclerview的点击事件
-    //填充数据
 public class PcFragment extends Fragment {
     ConvenientBanner banner;
     private String[] images = {"http://bmob-cdn-17361.b0.upaiyun.com/2018/03/16/64e0b7cd408f46288065118e80535f17.png",
@@ -58,7 +56,6 @@ public class PcFragment extends Fragment {
            return getView();
        }
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -111,26 +108,13 @@ public class PcFragment extends Fragment {
     private void initView() {
         View header=LayoutInflater.from(getActivity()).inflate(R.layout.rv_header_banner,null);
         banner=header.findViewById(R.id.banner);
-        banner.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,500));
+        banner.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,530));
         recycler_news=getView().findViewById(R.id.recycler_view2);
-       /** banner.setImageLoader(new GlideImageLoader());
-        initLists();
-        banner.setImages(list_path);
-        banner.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-
-                  Toast.makeText(getActivity(), "aaaa", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        banner.start();*/
         linearLayoutManager=new LinearLayoutManager(getContext());
         recycler_news.setLayoutManager(linearLayoutManager);
         DividerItemDecoration dividerItemDecoration=new DividerItemDecoration(recycler_news.getContext(),linearLayoutManager.getOrientation());
         recycler_news.addItemDecoration(dividerItemDecoration);
     }
-
     private class NetWorkHolderView implements Holder<String>{
         private ImageView imageView;
         @Override
@@ -140,17 +124,10 @@ public class PcFragment extends Fragment {
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             return view;
         }
-
         @Override
         public void UpdateUI(Context context, int position, String data) {
             Log.d("imageUrl","UPdataUI:"+data);
             Glide.with(context).load(data).placeholder(R.mipmap.ic_launcher_round).into(imageView);
         }
     }
-
-    /**  private void initLists() {
-        list_path.add(R.drawable.jia);
-        list_path.add(R.drawable.lao);
-        list_path.add(R.drawable.ban);
-    }*/
 }

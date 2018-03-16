@@ -38,7 +38,6 @@ public class JdFragment extends Fragment {
             return getView();
         }
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

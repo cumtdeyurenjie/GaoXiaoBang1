@@ -49,7 +49,6 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
                 Glide.with(context).load(url).into(holder.newsImage);
                 holder.newsTitle.setText(news.getname());
                 holder.newsData.setText(news.getData());
-
     }
     @Override
     public int getItemCount() {

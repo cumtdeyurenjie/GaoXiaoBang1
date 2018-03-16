@@ -17,11 +17,9 @@ import com.bumptech.glide.request.target.Target;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
 /**
  * Created by YRJ on 2018/3/7.
  */
-
 public class Adapter1 extends RecyclerView.Adapter<Adapter1.ViewHolder> {
     private List<News> newsList;
     public static final int TYPE_HEADER = 0;
@@ -39,7 +37,6 @@ public class Adapter1 extends RecyclerView.Adapter<Adapter1.ViewHolder> {
         ViewHolder holder=new ViewHolder(view);
         return holder;
     }
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_HEADER) {
@@ -67,7 +64,6 @@ public class Adapter1 extends RecyclerView.Adapter<Adapter1.ViewHolder> {
     public int getItemCount() {
             return mHeaderView==null?newsList.size():newsList.size()+1;
     }
-
     @Override
     public int getItemViewType(int position) {
         if (mHeaderView==null){
@@ -82,17 +78,14 @@ public class Adapter1 extends RecyclerView.Adapter<Adapter1.ViewHolder> {
     public View getmHeaderView() {
         return mHeaderView;
     }
-
     public void setmHeaderView(View mHeaderView) {
         this.mHeaderView = mHeaderView;
         notifyItemInserted(0);//插入下标0位置
     }
-
     public int getRealPosition(ViewHolder holder) {
         int position=holder.getLayoutPosition();
         return mHeaderView==null?position:position-1;
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
          View view;
          TextView newsTitle;
