@@ -7,7 +7,12 @@ import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 public class Main2Activity extends AppCompatActivity {
 private TextView textView;
@@ -19,7 +24,22 @@ private TextView textView;
         textView.setMovementMethod(new ScrollingMovementMethod());
         Intent intent=getIntent();
         String data=intent.getStringExtra("name");
-        textView.setText(data);
-
+        Bmob.initialize(this,"aa2fc85163714c0297b551d9378ea242");
+        BmobQuery<News>query=new BmobQuery<>();
+        query.addWhereEqualTo("name",data);
+        query.findObjects(new FindListener<News>() {
+            @Override
+            public void done(List<News> list, BmobException e) {
+                if (e==null){
+                    Toast.makeText(Main2Activity.this, "success", Toast.LENGTH_SHORT).show();
+                    for (News news:list){
+                        String s=news.getContent();
+                        textView.setText(s);
+                    }
+                }else{
+                    Toast.makeText(Main2Activity.this, "fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
