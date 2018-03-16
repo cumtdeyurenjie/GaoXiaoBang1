@@ -36,18 +36,7 @@ public class Adapter1 extends RecyclerView.Adapter<Adapter1.ViewHolder> {
             return new ViewHolder(mHeaderView);
         }
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout,parent,false);
-        final ViewHolder holder=new ViewHolder(view);
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position=holder.getAdapterPosition();
-                News news= newsList.get(position);
-                Intent intent=new Intent(view.getContext(),Main2Activity.class);
-                String newstitle=news.getname();
-                intent.putExtra("name",newstitle);
-                view.getContext().startActivity(intent);
-            }
-        });
+        ViewHolder holder=new ViewHolder(view);
         return holder;
     }
 
@@ -63,6 +52,16 @@ public class Adapter1 extends RecyclerView.Adapter<Adapter1.ViewHolder> {
         Glide.with(context).load(url).into(holder.newsImage);
         holder.newsTitle.setText(news.getname());
         holder.newsData.setText(news.getData());
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                News news= newsList.get(pos);
+                Intent intent=new Intent(view.getContext(),Main2Activity.class);
+                String Url=news.getUrl();
+                intent.putExtra("url",Url);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
     @Override
     public int getItemCount() {

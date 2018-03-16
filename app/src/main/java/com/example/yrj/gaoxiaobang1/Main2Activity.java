@@ -23,15 +23,14 @@ private TextView textView;
         textView=findViewById(R.id.content);
         textView.setMovementMethod(new ScrollingMovementMethod());
         Intent intent=getIntent();
-        String data=intent.getStringExtra("name");
+        String data=intent.getStringExtra("url");
         Bmob.initialize(this,"aa2fc85163714c0297b551d9378ea242");
         BmobQuery<News>query=new BmobQuery<>();
-        query.addWhereEqualTo("name",data);
+        query.addWhereEqualTo("Url",data);
         query.findObjects(new FindListener<News>() {
             @Override
             public void done(List<News> list, BmobException e) {
                 if (e==null){
-                    Toast.makeText(Main2Activity.this, "success", Toast.LENGTH_SHORT).show();
                     for (News news:list){
                         String s=news.getContent();
                         textView.setText(s);

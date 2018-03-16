@@ -1,6 +1,7 @@
 package com.example.yrj.gaoxiaobang1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,12 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -36,20 +39,15 @@ import cn.bmob.v3.listener.FindListener;
     //填充数据
 public class PcFragment extends Fragment {
     ConvenientBanner banner;
-    private String[] images = {"http://img2.imgtn.bdimg.com/it/u=3093785514,1341050958&fm=21&gp=0.jpg",
-            "http://img2.3lian.com/2014/f2/37/d/40.jpg",
-            "http://d.3987.com/sqmy_131219/001.jpg",
-            "http://img2.3lian.com/2014/f2/37/d/39.jpg",
-            "http://www.8kmm.com/UploadFiles/2012/8/201208140920132659.jpg",
-            "http://f.hiphotos.baidu.com/image/h%3D200/sign=1478eb74d5a20cf45990f9df460b4b0c/d058ccbf6c81800a5422e5fdb43533fa838b4779.jpg",
-            "http://f.hiphotos.baidu.com/image/pic/item/09fa513d269759ee50f1971ab6fb43166c22dfba.jpg"
+    private String[] images = {"http://bmob-cdn-17361.b0.upaiyun.com/2018/03/16/64e0b7cd408f46288065118e80535f17.png",
+            "http://bmob-cdn-17361.b0.upaiyun.com/2018/03/16/2e9cc9da407625228000aaf72e4acb6a.png",
+            "http://bmob-cdn-17361.b0.upaiyun.com/2018/03/16/a4bcd8ba40f6220a80d86a55957850d7.png",
     };
     List<String>netWorkImage=new ArrayList<>();
     List<News> aNews;
     RecyclerView recycler_news;
     private LinearLayoutManager linearLayoutManager;
     private Adapter1 adapter;
-    //ArrayList<Integer>list_path=new ArrayList<>();//存放轮播图的图片路径
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,7 +67,6 @@ public class PcFragment extends Fragment {
         initNews();
         initBanner();
     }
-
     private void initBanner() {
         netWorkImage= Arrays.asList(images);
         banner.setPages(new CBViewHolderCreator() {
@@ -80,7 +77,17 @@ public class PcFragment extends Fragment {
         },netWorkImage)
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_LEFT)
                 .setPageIndicator(new int[]{R.drawable.indicator_gray,R.drawable.indicator_red})
+                .startTurning(2000)
                 .setScrollDuration(1500);
+        banner.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent=new Intent(getActivity(),Main2Activity.class);
+                String Url=images[position];
+                intent.putExtra("url",Url);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initNews() {
@@ -91,7 +98,6 @@ public class PcFragment extends Fragment {
             @Override
             public void done(List<News> list, BmobException e) {
                 if (e==null){
-                    Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
                     aNews =list;
                     adapter =new Adapter1(aNews);
                     recycler_news.setAdapter(adapter);
@@ -105,7 +111,7 @@ public class PcFragment extends Fragment {
     private void initView() {
         View header=LayoutInflater.from(getActivity()).inflate(R.layout.rv_header_banner,null);
         banner=header.findViewById(R.id.banner);
-        banner.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,400));
+        banner.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,500));
         recycler_news=getView().findViewById(R.id.recycler_view2);
        /** banner.setImageLoader(new GlideImageLoader());
         initLists();

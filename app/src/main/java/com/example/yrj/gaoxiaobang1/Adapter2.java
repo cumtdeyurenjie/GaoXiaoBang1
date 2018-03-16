@@ -34,8 +34,8 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
                 int position=holder.getAdapterPosition();
                 News news= newsList.get(position);
                 Intent intent=new Intent(view.getContext(),Main2Activity.class);
-                String newstitle=news.getname();
-                intent.putExtra("name",newstitle);
+                String Url=news.getUrl();
+                intent.putExtra("url",Url);
                 view.getContext().startActivity(intent);
             }
         });

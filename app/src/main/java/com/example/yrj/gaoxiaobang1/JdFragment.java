@@ -55,7 +55,6 @@ public class JdFragment extends Fragment {
             @Override
             public void done(List<News> list, BmobException e) {
                 if (e==null){
-                    Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
                     aNews =list;
                     adapter =new Adapter2(aNews);
                     recycler_news.setAdapter(adapter);
